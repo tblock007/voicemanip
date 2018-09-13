@@ -51,15 +51,15 @@ OS_EVENT    *LCDSem;
 #define     FREQ_SHIFT_N1_5     2
 #define     FREQ_SHIFT_N2_5     5
 
-#define		MIN_VOLUME			91
-#define 	MAX_VOLUME			127
-#define		VOLUME_SHIFT		3
-#define		MAX_ECHO_NEG_DELAY	4095
-#define		MIN_ECHO_NEG_DELAY	95
-#define		ECHO_DELAY_SHIFT	800
+#define     MIN_VOLUME			91
+#define     MAX_VOLUME			127
+#define     VOLUME_SHIFT		3
+#define     MAX_ECHO_NEG_DELAY	4095
+#define     MIN_ECHO_NEG_DELAY	95
+#define     ECHO_DELAY_SHIFT	800
 
-#define 	NUM_BUTTONS			4
-#define		NUM_SINE_SAMPLES	320
+#define     NUM_BUTTONS			4
+#define     NUM_SINE_SAMPLES	320
 
 
 

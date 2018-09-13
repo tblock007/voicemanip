@@ -7,72 +7,72 @@ use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
 entity VoiceManipulator is
-	port
-	(
-		-- GPIO
-		GPIO_1		: inout	std_logic_vector (9 downto 0);
-	
-		-- LCD ports
-		LCD_ON  	:  out std_logic;
-		LCD_BLON 	:  out std_logic;
-		LCD_EN  	:  out std_logic;
-		LCD_RS  	:  out std_logic;
-		LCD_RW  	:  out std_logic;
-		LCD_DATA 	:  inout std_logic_vector (7 downto 0);
-					 
-		-- LEDS
-		LEDG  		:  out std_logic_vector(7 downto 0);              
+    port
+    (
+        -- GPIO
+        GPIO_1		: inout	std_logic_vector (9 downto 0);
+    
+        -- LCD ports
+        LCD_ON  	:  out std_logic;
+        LCD_BLON 	:  out std_logic;
+        LCD_EN  	:  out std_logic;
+        LCD_RS  	:  out std_logic;
+        LCD_RW  	:  out std_logic;
+        LCD_DATA 	:  inout std_logic_vector (7 downto 0);
+                     
+        -- LEDS
+        LEDG  		:  out std_logic_vector(7 downto 0);              
 
-		-- SRAM ports
-		SRAM_ADDR 	: out std_logic_vector (17 DOWNTO 0);
-		SRAM_DQ 	: inout std_logic_vector (15 DOWNTO 0);
-		SRAM_CE_N 	: out std_logic;
-		SRAM_UB_N 	: out std_logic;
-		SRAM_LB_N 	: out std_logic;
-		SRAM_OE_N 	: out std_logic;            
-		SRAM_WE_N 	: out std_logic;
+        -- SRAM ports
+        SRAM_ADDR 	: out std_logic_vector (17 DOWNTO 0);
+        SRAM_DQ 	: inout std_logic_vector (15 DOWNTO 0);
+        SRAM_CE_N 	: out std_logic;
+        SRAM_UB_N 	: out std_logic;
+        SRAM_LB_N 	: out std_logic;
+        SRAM_OE_N 	: out std_logic;            
+        SRAM_WE_N 	: out std_logic;
 
-		-- CLOCK port
-		CLOCK_50 	: in std_logic;
-		CLOCK_27 	: in std_logic;
+        -- CLOCK port
+        CLOCK_50 	: in std_logic;
+        CLOCK_27 	: in std_logic;
       
-		--I2C interface
-		I2C_SCLK	:  out std_logic;
-		I2C_SDAT	:  inout std_logic;
-					 
-		-- Switch			
-		SW		:  in std_logic_vector(4 downto 0);
-		
-		--AUDIO 
-		AUD_ADCLRCK 	:  inout std_logic; 
-		AUD_ADCDAT 	:  in std_logic; 
-		AUD_DACLRCK 	:  inout std_logic; 
-		AUD_DACDAT 	:  out std_logic; 
-		AUD_XCK 	:  out std_logic; 
-		AUD_BCLK 	:  inout std_logic; 
-	
-		--buttons
-		KEY		: in std_logic_vector(3 downto 0);
-	
-		-- RESET key
-      	RST		:  in std_logic;
-				
-					-- CFI Flash ports
-		FL_ADDR : out std_logic_vector(21 downto 0);
-		FL_DQ : inout std_logic_vector(7 downto 0);
-		FL_OE_N : out std_logic ;
-		FL_CE_N : out std_logic ;
-		FL_WE_N : out std_logic ;
-		FL_RST_N : out std_logic
-	);
+        --I2C interface
+        I2C_SCLK	:  out std_logic;
+        I2C_SDAT	:  inout std_logic;
+                     
+        -- Switch			
+        SW		:  in std_logic_vector(4 downto 0);
+        
+        --AUDIO 
+        AUD_ADCLRCK 	:  inout std_logic; 
+        AUD_ADCDAT 	:  in std_logic; 
+        AUD_DACLRCK 	:  inout std_logic; 
+        AUD_DACDAT 	:  out std_logic; 
+        AUD_XCK 	:  out std_logic; 
+        AUD_BCLK 	:  inout std_logic; 
+    
+        --buttons
+        KEY		: in std_logic_vector(3 downto 0);
+    
+        -- RESET key
+        RST 	:  in std_logic;
+                
+        -- CFI Flash ports
+        FL_ADDR : out std_logic_vector(21 downto 0);
+        FL_DQ : inout std_logic_vector(7 downto 0);
+        FL_OE_N : out std_logic ;
+        FL_CE_N : out std_logic ;
+        FL_WE_N : out std_logic ;
+        FL_RST_N : out std_logic
+    );
 end VoiceManipulator;
 
 
 architecture structure of VoiceManipulator is
 
 component niosII_system
-	port
-	(
+    port
+    (
                  -- 1) global signals:
                     signal clk_0 : IN STD_LOGIC;
                     signal clk_1 : IN STD_LOGIC;
@@ -112,14 +112,14 @@ component niosII_system
                     signal LCD_RS_from_the_lcd_0 : OUT STD_LOGIC;
                     signal LCD_RW_from_the_lcd_0 : OUT STD_LOGIC;
                     signal LCD_data_to_and_from_the_lcd_0 : INOUT STD_LOGIC_VECTOR (7 DOWNTO 0);
-						  
-				 -- the_lm20_uart
-					signal cts_n_to_the_lm20_uart : IN STD_LOGIC;
-					signal rts_n_from_the_lm20_uart : OUT STD_LOGIC;
-					signal rxd_to_the_lm20_uart : IN STD_LOGIC;
-					signal txd_from_the_lm20_uart : OUT STD_LOGIC;	
-						  
-				 -- the_pcm_interface_0
+                          
+                 -- the_lm20_uart
+                    signal cts_n_to_the_lm20_uart : IN STD_LOGIC;
+                    signal rts_n_from_the_lm20_uart : OUT STD_LOGIC;
+                    signal rxd_to_the_lm20_uart : IN STD_LOGIC;
+                    signal txd_from_the_lm20_uart : OUT STD_LOGIC;	
+                          
+                 -- the_pcm_interface_0
                     signal coe_pcmc_export_to_the_pcm_interface_0 : IN STD_LOGIC;
                     signal coe_pcmi_export_from_the_pcm_interface_0 : OUT STD_LOGIC;
                     signal coe_pcmo_export_to_the_pcm_interface_0 : IN STD_LOGIC;
@@ -136,25 +136,25 @@ component niosII_system
 
                  -- the_switch
                     signal in_port_to_the_switch : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
-						  
-				 -- the_tri_state_bridge_0_avalon_slave
+                          
+                 -- the_tri_state_bridge_0_avalon_slave
                     signal address_to_the_cfi_flash_0 : OUT STD_LOGIC_VECTOR (21 DOWNTO 0);
                     signal read_n_to_the_cfi_flash_0 : OUT STD_LOGIC;
                     signal select_n_to_the_cfi_flash_0 : OUT STD_LOGIC;
                     signal tri_state_bridge_0_data : INOUT STD_LOGIC_VECTOR (7 DOWNTO 0);
                     signal write_n_to_the_cfi_flash_0 : OUT STD_LOGIC
 
-	);
+    );
 end component;
 
 begin
     LCD_ON <= '1';
-	FL_RST_N <= '1';
+    FL_RST_N <= '1';
 
-	-- Component Instantiation Statement (optional)
-	NIOSII : niosII_system port map ( 
+    -- Component Instantiation Statement (optional)
+    NIOSII : niosII_system port map ( 
                     clk_0 => CLOCK_50,
-					clk_1 => CLOCK_27,
+                    clk_1 => CLOCK_27,
                     clocks_0_AUD_CLK_out => AUD_XCK,
                     reset_n => RST,
                     sram_controller_0_s0_data => SRAM_DQ,
@@ -179,17 +179,17 @@ begin
                     LCD_RS_from_the_lcd_0 => LCD_RS,
                     LCD_RW_from_the_lcd_0 => LCD_RW,
                     LCD_data_to_and_from_the_lcd_0 => LCD_DATA,
-						  
-					cts_n_to_the_lm20_uart => GPIO_1(9),
-					rts_n_from_the_lm20_uart => GPIO_1(7),
-					rxd_to_the_lm20_uart => GPIO_1(5),
-					txd_from_the_lm20_uart => GPIO_1(3),	
-		
-					coe_pcmc_export_to_the_pcm_interface_0 => GPIO_1(4),
-					coe_pcmo_export_to_the_pcm_interface_0 => GPIO_1(6),
-					coe_pcmi_export_from_the_pcm_interface_0 => GPIO_1(8),
-					coe_pcms_export_to_the_pcm_interface_0 => GPIO_1(2),
-					coe_reset_export_to_the_pcm_interface_0 => SW(4),
+                          
+                    cts_n_to_the_lm20_uart => GPIO_1(9),
+                    rts_n_from_the_lm20_uart => GPIO_1(7),
+                    rxd_to_the_lm20_uart => GPIO_1(5),
+                    txd_from_the_lm20_uart => GPIO_1(3),	
+        
+                    coe_pcmc_export_to_the_pcm_interface_0 => GPIO_1(4),
+                    coe_pcmo_export_to_the_pcm_interface_0 => GPIO_1(6),
+                    coe_pcmi_export_from_the_pcm_interface_0 => GPIO_1(8),
+                    coe_pcms_export_to_the_pcm_interface_0 => GPIO_1(2),
+                    coe_reset_export_to_the_pcm_interface_0 => SW(4),
 
                     sram_a_from_the_sram_controller_0 => SRAM_ADDR,
                     sram_ce_bar_from_the_sram_controller_0 => SRAM_CE_N,
@@ -199,14 +199,14 @@ begin
                     sram_we_bar_from_the_sram_controller_0 => SRAM_WE_N,
 
                     in_port_to_the_switch => SW(3 downto 0),
-						  
-					address_to_the_cfi_flash_0 => FL_ADDR,
-					tri_state_bridge_0_data => FL_DQ,
-					read_n_to_the_cfi_flash_0 => FL_OE_N,
-					select_n_to_the_cfi_flash_0 => FL_CE_N,
-					write_n_to_the_cfi_flash_0 => FL_WE_N
-				
-	);	  
+                          
+                    address_to_the_cfi_flash_0 => FL_ADDR,
+                    tri_state_bridge_0_data => FL_DQ,
+                    read_n_to_the_cfi_flash_0 => FL_OE_N,
+                    select_n_to_the_cfi_flash_0 => FL_CE_N,
+                    write_n_to_the_cfi_flash_0 => FL_WE_N
+                
+    );	  
 end structure;
-		  
+          
 
